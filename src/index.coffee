@@ -1,2 +1,4 @@
 
-module.exports = ->
+fjs = {}
+
+module.exports = fjs
