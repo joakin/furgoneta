@@ -80,6 +80,28 @@ describe 'collections', ->
       ), 0, sampleObj
       expect(res).to.eql 3
 
+  describe '#fold', ->
+    it 'should be an alias to reduce', ->
+      expect(fjs.reduce).to.eql fjs.fold
+
+  describe '#reduce1', ->
+
+    it 'should apply fn through all items of the array using the first one as seed', ->
+      res = fjs.reduce1 ((m, v, k, c) ->
+        m + v
+      ), sampleArr
+      expect(res).to.eql 6
+
+    it 'should apply fn through all items of the object with the first value as seed', ->
+      res = fjs.reduce1 ((m, v, k, c) ->
+        m + v
+      ), sampleObj
+      expect(res).to.eql 3
+
+  describe '#fold1', ->
+    it 'should be an alias to reduce1', ->
+      expect(fjs.reduce1).to.eql fjs.fold1
+
 
 
 describe 'functions', ->

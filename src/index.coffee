@@ -18,12 +18,23 @@ fjs.map = map = (fn, coll) ->
   else
     fn(v, k, coll) for v, k in coll
 
-fjs.reduce = (fn, seed, coll) ->
+fjs.reduce = reduce = fjs.fold = fold = (fn, seed, coll) ->
   memo = seed
   each ((value, key, coll1) ->
     memo = fn(memo, value, key, coll1)
   ), coll
   memo
+
+fjs.reduce1 = reduce1 = fjs.fold1 = fold1 = (fn, coll) ->
+  memo = null
+  each ((value, key, coll1) ->
+    if memo isnt null
+      memo = fn(memo, value, key, coll1)
+    else
+      memo = value
+  ), coll
+  memo
+
 
 # Utilities
 # =========
