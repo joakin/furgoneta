@@ -1,61 +1,86 @@
 
-fjs = {}
+var fjs = {}
 
+var each = fjs.each = function(fn, coll) {
+  map(fn, coll)
+  return void 0
+}
 
-# Functions
-# =========
+var map = fjs.map = function(fn, coll) {
+  var k, v, _i, _len, _results, _results1
+  if (isObject(coll)) {
+    _results = []
+    for (k in coll) {
+      v = coll[k]
+      _results.push(fn(v, k, coll))
+    }
+    return _results
+  } else {
+    _results1 = []
+    for (k = _i = 0, _len = coll.length; _i < _len; k = ++_i) {
+      v = coll[k]
+      _results1.push(fn(v, k, coll))
+    }
+    return _results1
+  }
+}
 
-# Collections
-# ===========
-
-fjs.each = each = (fn, coll) ->
-  map fn, coll
-  undefined
-
-fjs.map = map = (fn, coll) ->
-  if isObject coll
-    fn(v, k, coll) for k, v of coll
-  else
-    fn(v, k, coll) for v, k in coll
-
-fjs.reduce = reduce = fjs.fold = fold = (fn, seed, coll) ->
+var reduce = fjs.reduce = function(fn, seed, coll) {
+  var memo
   memo = seed
-  each ((value, key, coll1) ->
-    memo = fn(memo, value, key, coll1)
-  ), coll
-  memo
+  each((function(value, key, coll1) {
+    return memo = fn(memo, value, key, coll1)
+  }), coll)
+  return memo
+}
+var fold = fjs.fold = reduce
 
-fjs.reduce1 = reduce1 = fjs.fold1 = fold1 = (fn, coll) ->
+var reduce1 = fjs.reduce1 = function(fn, coll) {
+  var memo
   memo = null
-  each ((value, key, coll1) ->
-    if memo isnt null
-      memo = fn(memo, value, key, coll1)
-    else
-      memo = value
-  ), coll
-  memo
-
-
-# Utilities
-# =========
-
-# Types
-# -----
+  each((function(value, key, coll1) {
+    if (memo !== null) {
+      return memo = fn(memo, value, key, coll1)
+    } else {
+      return memo = value
+    }
+  }), coll)
+  return memo
+}
+var fold1 = fjs.fold1 = reduce1
 
 objToString = {}.toString
 
-fjs.typeOf = typeOf = (it) ->
-  objToString.call(it).slice(8, -1)
+var typeOf = fjs.typeOf = function(it) {
+  return objToString.call(it).slice(8, -1)
+}
 
-fjs.isA = isA = (type, it) -> type is typeOf it
+var isA = fjs.isA = function(type, it) {
+  return type === typeOf(it)
+}
 
-fjs.isNumber   = isNumber   = (it) -> isA 'Number',   it
-fjs.isArray    = isArray    = (it) -> isA 'Array',    it
-fjs.isObject   = isObject   = (it) -> isA 'Object',   it
-fjs.isString   = isString   = (it) -> isA 'String',   it
-fjs.isFunction = isFunction = (it) -> isA 'Function', it
-fjs.isBoolean  = isBoolean  = (it) -> isA 'Boolean',  it
+var isNumber = fjs.isNumber = function(it) {
+  return isA('Number', it)
+}
 
+var isArray = fjs.isArray = function(it) {
+  return isA('Array', it)
+}
 
+var isObject = fjs.isObject = function(it) {
+  return isA('Object', it)
+}
+
+var isString = fjs.isString = function(it) {
+  return isA('String', it)
+}
+
+var isFunction = fjs.isFunction = function(it) {
+  return isA('Function', it)
+}
+
+var isBoolean = fjs.isBoolean = function(it) {
+  return isA('Boolean', it)
+}
 
 module.exports = fjs
