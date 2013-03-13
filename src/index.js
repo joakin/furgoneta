@@ -8,7 +8,7 @@ var fjs = {}
 var compose = fjs.compose = function() {
   var fns = toArray(arguments)
   return function() {
-    return reduce(function(m, v) {
+    return reduceRight(function(m, v) {
       return v.apply(this, [m])
     }, first(fns).apply(this, arguments), rest(fns))
   }
@@ -20,6 +20,8 @@ var partial = fjs.partial = function(fn) {
     return fn.apply(this, args.concat(toArray(arguments)))
   }
 }
+
+var id = fjs.id = function(x) { return x }
 
 /*
  * COLLECTIONS
@@ -67,6 +69,18 @@ var reduce1 = fjs.reduce1 = function(fn, coll) {
   return memo
 }
 var fold1 = fjs.fold1 = reduce1
+
+var reduceRight = fjs.reduceRight = function(fn, seed, coll) {
+  var isObj = isObject(coll)
+    , xs = isObj ? keys(coll) : coll
+    , l = xs.length
+    , getIdx = isObj? objToFunc(xs): id
+  return reduce(function(memo, value, key, coll1) {
+    var idx = getIdx(--l)
+    return fn(memo, coll[idx], idx, coll1)
+  }, seed, coll)
+}
+var foldR = fjs.foldR = reduceRight
 
 
 /*
@@ -149,6 +163,12 @@ var _slice = [].slice
 
 var toArray = function(args) {
   return _slice.call(args)
+}
+
+// TO FUNCTION
+
+var objToFunc = fjs.objToFunc = function(xs) {
+  return function(idx){ return xs[idx] }
 }
 
 module.exports = fjs

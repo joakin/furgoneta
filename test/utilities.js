@@ -76,4 +76,18 @@ describe('utilities', function() {
 
   })
 
+  describe('to functions', function() {
+    describe('#objToFunc', function() {
+      it('should convert array to function of its idxs', function() {
+        expect(fjs.objToFunc([4, 5])(0)).to.eql(4)
+        expect(fjs.objToFunc([4, 5])(1)).to.eql(5)
+      })
+      it('should convert object to function of its keys', function() {
+        var sampleObj = { a: 1, b: 2 }
+        expect(fjs.objToFunc(sampleObj)('a')).to.eql(1)
+        expect(fjs.objToFunc(sampleObj)('b')).to.eql(2)
+      })
+    })
+  })
+
 })

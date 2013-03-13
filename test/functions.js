@@ -33,5 +33,11 @@ describe('Functions', function() {
     })
   })
 
+  describe('#id', function() {
+    it('should return what comes in', function() {
+      expect(fjs.id(1)).to.eql(1)
+    })
+  })
+
 })
 
