@@ -103,7 +103,11 @@ var keys = fjs.keys = Object.keys || function (obj) {
 
 var first = fjs.first = function(xs) { return xs[0] }
 
+var last = fjs.last = function(xs) { return xs[xs.length-1] }
+
 var rest = fjs.rest = function(xs) { return xs.slice(1) }
+
+var initial = fjs.initial = function(xs) { return xs.slice(0, xs.length-1) }
 
 var concat = fjs.concat = function() {
   var args = toArray(arguments)

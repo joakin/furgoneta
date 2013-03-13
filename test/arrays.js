@@ -23,6 +23,21 @@ describe('Arrays', function() {
     })
   })
 
+  describe('#last', function() {
+    it('should return the last element of the array', function() {
+      expect(fjs.last(sampleArr)).to.eql(4)
+    })
+  })
+
+  describe('#initial', function() {
+    it('should return the elements of the array but the last one', function() {
+      var initialArr = fjs.initial(sampleArr)
+      expect(initialArr.length).to.eql(3)
+      expect(initialArr[0]).to.eql(1)
+      expect(initialArr[initialArr.length-1]).to.eql(3)
+    })
+  })
+
   describe('#concat', function() {
     it('should concat two arrays', function() {
       var res = fjs.concat(sampleArr, sampleArr2)
