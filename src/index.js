@@ -8,8 +8,7 @@ var fjs = {}
 var compose = fjs.compose = function() {
   var fns = toArray(arguments)
   return function() {
-    console.log(first(fns).apply(this, arguments))
-    reduce(function(m, v) {
+    return reduce(function(m, v) {
       return v.apply(this, [m])
     }, first(fns).apply(this, arguments), rest(fns))
   }
