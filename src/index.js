@@ -39,6 +39,18 @@ var each = fjs.each = function(fn, coll) {
   }
 }
 
+var eachRight = fjs.eachRight = function(fn, coll) {
+  if (isObject(coll)) {
+    eachRight(function(key, i, ks) {
+      fn(coll[key], key, coll)
+    }, keys(coll))
+  } else {
+    for (var i = coll.length-1; i >= 0; i -= 1) {
+      fn(coll[i], i, coll)
+    }
+  }
+}
+
 var map = fjs.map = function(fn, coll) {
   var res = []
   each(function(x, idx, xs) {

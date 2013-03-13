@@ -57,6 +57,48 @@ describe('collections', function() {
     })
   })
 
+  describe('#eachRight', function() {
+    it('should return nothing', function() {
+      var res = fjs.eachRight(function() { return 5 }, sampleArr)
+        , res2 = fjs.eachRight(function() { return 5 }, sampleObj)
+      expect(res).to.be.undefined
+      expect(res2).to.be.undefined
+    })
+    it('should apply fn to each item of an array in reverse order', function() {
+      var count = 0
+        , arr = [1, 2]
+        , fn = function(v, k, coll) {
+            expect(v).to.eql(arr[k])
+            expect(coll).to.eql(arr)
+            count += 1
+          }
+      fjs.eachRight(fn, arr)
+      expect(count).to.eql(2)
+    })
+    it('should apply fn to each item of an object in reverse order', function() {
+      var count = 0
+        , obj = { a: 1, b: 2 }
+        , fn = function(v, k, coll) {
+            expect(v).to.eql(coll[k])
+            expect(coll).to.eql(obj)
+            count += 1
+          }
+      fjs.eachRight(fn, obj)
+      expect(count).to.eql(2)
+    })
+    it('should apply fn to each item of an string in reverse', function() {
+      var count = 0
+        , str = "Hola mundo"
+        , fn = function(v, k, coll) {
+            expect(v).to.eql(str[k])
+            expect(coll).to.eql(str)
+            count += 1
+          }
+      fjs.eachRight(fn, str)
+      expect(count).to.eql(10)
+    })
+  })
+
   describe('#map', function() {
     it('should return an array with the result of applying fn to the items of the array', function() {
       var res = fjs.map(function(v, k, coll) { return v + 2 }, sampleArr)
