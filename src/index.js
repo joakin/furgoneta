@@ -83,16 +83,27 @@ var reduce1 = fjs.reduce1 = function(fn, coll) {
 var fold1 = fjs.fold1 = reduce1
 
 var reduceRight = fjs.reduceRight = function(fn, seed, coll) {
-  var isObj = isObject(coll)
-    , xs = isObj ? keys(coll) : coll
-    , l = xs.length
-    , getIdx = isObj? objToFunc(xs): id
-  return reduce(function(memo, value, key, coll1) {
-    var idx = getIdx(--l)
-    return fn(memo, coll[idx], idx, coll1)
-  }, seed, coll)
+  var memo = seed
+  eachRight((function(value, key, coll1) {
+    memo = fn(memo, value, key, coll1)
+  }), coll)
+  return memo
 }
 var foldR = fjs.foldR = reduceRight
+
+var reduceRight1 = fjs.reduceRight1 = function(fn, coll) {
+  var memo
+  memo = null
+  eachRight((function(value, key, coll1) {
+    if (memo !== null) {
+      return memo = fn(memo, value, key, coll1)
+    } else {
+      return memo = value
+    }
+  }), coll)
+  return memo
+}
+var foldR1 = fjs.foldR1 = reduceRight1
 
 
 /*

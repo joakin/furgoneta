@@ -166,18 +166,18 @@ describe('collections', function() {
     })
   })
 
-  describe.skip('#reduceRight1', function() {
+  describe('#reduceRight1', function() {
     it('should apply fn with memo as a seed to through all items of the array in reverse order', function() {
       var res = fjs.reduceRight1((function(m, v) { return m / v }), sampleArr)
       expect(res).to.eql(1.5)
     })
     it('should apply fn with memo as a seed to through all items of the object in reverse order', function() {
       var res = fjs.reduceRight1((function(m, v) { return m / v }), sampleObj)
-      expect(res).to.eql(0.5)
+      expect(res).to.eql(2)
     })
   })
 
-  describe.skip('#foldR1', function() {
+  describe('#foldR1', function() {
     it('should be an alias to reduceRight1', function() {
       expect(fjs.foldR1).to.eql(fjs.reduceRight1)
     })
