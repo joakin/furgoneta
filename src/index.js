@@ -10,7 +10,7 @@ var compose = fjs.compose = function() {
   return function() {
     return reduceRight(function(m, v) {
       return v.apply(this, [m])
-    }, first(fns).apply(this, arguments), rest(fns))
+    }, last(fns).apply(this, arguments), initial(fns))
   }
 }
 
