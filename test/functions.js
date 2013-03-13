@@ -27,6 +27,10 @@ describe('Functions', function() {
       var add2 = fjs.partial(add, 2)
       expect(add2).to.be.a('function')
     })
+    it('should apply the partial to the arguments passed', function() {
+      var add2 = fjs.partial(add, 2)
+      expect(add2(2)).to.eql(4)
+    })
   })
 
 })

@@ -18,7 +18,7 @@ var compose = fjs.compose = function() {
 var partial = fjs.partial = function(fn) {
   var args = rest(toArray(arguments))
   return function() {
-    fn.apply(this, args.concat(toArray(arguments)))
+    return fn.apply(this, args.concat(toArray(arguments)))
   }
 }
 
