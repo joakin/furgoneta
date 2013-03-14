@@ -7,14 +7,6 @@ var sampleArr = [1, 2, 3]
 
 describe('collections', function() {
 
-  describe('#length', function() {
-    it('is going to fail')
-  })
-
-  describe('#get', function() {
-    it('is going to fail')
-  })
-
   describe('#each', function() {
     it('should return nothing', function() {
       var res = fjs.each(function() { return 5 }, sampleArr)
