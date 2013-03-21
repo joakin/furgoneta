@@ -201,9 +201,16 @@ var toArray = function(args) {
 }
 
 // TO FUNCTION
+// -----------
 
 var objToFunc = fjs.objToFunc = function(xs) {
   return function(idx){ return xs[idx] }
+}
+
+var prop = fjs.prop = function(x) {
+  return function(it) {
+    return it[x]
+  }
 }
 
 module.exports = fjs

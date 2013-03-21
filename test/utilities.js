@@ -88,6 +88,14 @@ describe('utilities', function() {
         expect(fjs.objToFunc(sampleObj)('b')).to.eql(2)
       })
     })
+    describe('#prop', function() {
+      it('should return a function that returns the access to param prop', function() {
+        var length = fjs.prop('length')
+        expect(length([1, 2])).to.eql(2)
+      })
+    })
+  })
+
   })
 
 })
