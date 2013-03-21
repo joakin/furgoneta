@@ -175,5 +175,20 @@ describe('collections', function() {
     })
   })
 
+  describe('#find', function() {
+    it('should return null when no item passed the truth test', function() {
+      var res = fjs.find(function(x) { return false }, sampleArr)
+        , res1 = fjs.find(function(x) { return false }, sampleObj)
+      expect(res).to.be.falsy
+      expect(res1).to.be.falsy
+    })
+    it('should return the element found if truth test passes', function() {
+      var res = fjs.find(function(x) { return x===2 }, sampleArr)
+        , res1 = fjs.find(function(x) { return x===2 }, sampleObj)
+      expect(res).to.eql(2)
+      expect(res1).to.eql(2)
+    })
+  })
+
 
 })
