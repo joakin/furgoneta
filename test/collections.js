@@ -219,6 +219,12 @@ describe('collections', function() {
       expect(res.length).to.eql(sampleArr.length)
       expect(res2.length).to.eql(2)
     })
+    it('should return all the items that pass the truth test in the object', function() {
+      var res = fjs.filter(fjs.functor(true), sampleObj)
+        , res2 = fjs.filter(function(x) { return x % 2 }, sampleObj)
+      expect(res.length).to.eql(fjs.keys(sampleObj).length)
+      expect(res2.length).to.eql(1)
+    })
   })
 
   describe('#select', function() {
