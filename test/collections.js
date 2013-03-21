@@ -212,5 +212,20 @@ describe('collections', function() {
     })
   })
 
+  describe('#filter', function() {
+    it('should return all the items that pass the truth test in the array', function() {
+      var res = fjs.filter(fjs.functor(true), sampleArr)
+        , res2 = fjs.filter(function(x) { return x % 2 }, sampleArr)
+      expect(res.length).to.eql(sampleArr.length)
+      expect(res2.length).to.eql(2)
+    })
+  })
+
+  describe('#select', function() {
+    it('should be an alias to #filter', function() {
+      expect(fjs.select).to.eql(fjs.filter)
+    })
+  })
+
 
 })

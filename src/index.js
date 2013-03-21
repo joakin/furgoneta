@@ -124,7 +124,14 @@ var find = fjs.find = function(fn, coll) {
 }
 var detect = fjs.detect = find
 
-
+var filter = fjs.filter = function(fn, coll) {
+  return reduce(function(acc, x, idx) {
+    if (fn(x, idx, coll))
+      acc.push(x)
+    return acc
+  }, [], coll)
+}
+var select = fjs.select = filter
 
 /*
  * OBJECTS
