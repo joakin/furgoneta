@@ -39,5 +39,16 @@ describe('Functions', function() {
     })
   })
 
+  describe('#functor', function() {
+    it('should return a lambda that returns the param if param is not a func', function() {
+      var x = { random: 'stuff' }
+      expect(fjs.functor(x)()).to.eql(x)
+    })
+    it('should return param if it is a function', function() {
+      var fn = function() { return 5; }
+      expect(fjs.functor(fn)).to.eql(fn)
+    })
+  })
+
 })
 

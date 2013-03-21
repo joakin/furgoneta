@@ -23,6 +23,13 @@ var partial = fjs.partial = function(fn) {
 
 var id = fjs.id = function(x) { return x }
 
+var functor = fjs.functor = function(x) {
+  if (isFunction(x))
+    return x
+  else
+    return function() { return x }
+}
+
 /*
  * COLLECTIONS
  */
