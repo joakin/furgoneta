@@ -206,5 +206,11 @@ describe('collections', function() {
     })
   })
 
+  describe('#detect', function() {
+    it('should be an alias to #find', function() {
+      expect(fjs.detect).to.eql(fjs.find)
+    })
+  })
+
 
 })
