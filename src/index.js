@@ -217,15 +217,22 @@ var prop = fjs.prop = function(x) {
 // ----------------------
 
 var add = fjs.add = function(x, y) { return x + y }
-
 var sub = fjs.sub = function(x, y) { return x - y }
-
 var mul = fjs.mul = function(x, y) { return x * y }
-
 var div = fjs.div = function(x, y) { return x / y }
-
 var mod = fjs.mod = function(x, y) { return x % y }
 
+var eq = fjs.eq = function(x, y) { return x === y }
+var eqc = fjs.eqc = function(x, y) { return x == y }
+var neq = fjs.neq = function(x, y) { return x !== y }
+var neqc = fjs.neqc = function(x, y) { return x != y }
+var gt = fjs.gt = function(x, y) { return x > y }
+var ge = fjs.ge = function(x, y) { return x >= y }
+var lt = fjs.lt = function(x, y) { return x < y }
+var le = fjs.le = function(x, y) { return x <= y }
 
+var not = fjs.not = function(x) { return !x }
+var and = fjs.and = function(x, y) { return x && y }
+var or = fjs.or = function(x, y) { return x || y }
 
 module.exports = fjs

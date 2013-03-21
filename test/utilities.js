@@ -98,9 +98,65 @@ describe('utilities', function() {
 
   describe('operators as functions', function(){
     describe('comparisons', function() {
+      describe('#eq', function() {
+        it('should perform strict comparison', function() {
+          expect(fjs.eq(2, 3)).to.eql(false)
+          expect(fjs.eq(2, 2)).to.eql(true)
+          expect(fjs.eq(2, '2')).to.eql(false)
+        })
+      })
+      describe('#eqc', function() {
+        it('should perform cast comparison', function() {
+          expect(fjs.eqc(2, 3)).to.eql(false)
+          expect(fjs.eqc(2, 2)).to.eql(true)
+          expect(fjs.eqc(2, '2')).to.eql(true)
+        })
+      })
+      describe('#neq', function() {
+        it('should perform negated strict comparison', function() {
+          expect(fjs.neq(2, 3)).to.eql(true)
+          expect(fjs.neq(2, 2)).to.eql(false)
+          expect(fjs.neq(2, '2')).to.eql(true)
+        })
+      })
+      describe('#neqc', function() {
+        it('should perform cast comparison', function() {
+          expect(fjs.neqc(2, 3)).to.eql(true)
+          expect(fjs.neqc(2, 2)).to.eql(false)
+          expect(fjs.neqc(2, '2')).to.eql(false)
+        })
+      })
+      describe('#gt', function() {
+        it('should perform cast comparison', function() {
+          expect(fjs.gt(2, 3)).to.eql(false)
+          expect(fjs.gt(2, 2)).to.eql(false)
+          expect(fjs.gt(3, 2)).to.eql(true)
+        })
+      })
+      describe('#ge', function() {
+        it('should perform cast comparison', function() {
+          expect(fjs.ge(2, 3)).to.eql(false)
+          expect(fjs.ge(2, 2)).to.eql(true)
+          expect(fjs.ge(3, 2)).to.eql(true)
+        })
+      })
+      describe('#lt', function() {
+        it('should perform cast comparison', function() {
+          expect(fjs.lt(2, 3)).to.eql(true)
+          expect(fjs.lt(2, 2)).to.eql(false)
+          expect(fjs.lt(3, 2)).to.eql(false)
+        })
+      })
+      describe('#le', function() {
+        it('should perform cast comparison', function() {
+          expect(fjs.le(2, 3)).to.eql(true)
+          expect(fjs.le(2, 2)).to.eql(true)
+          expect(fjs.le(3, 2)).to.eql(false)
+        })
+      })
     })
     describe('math', function() {
-      describe('add', function() {
+      describe('#add', function() {
         it('should add nums', function() {
           expect(fjs.add(1, 2)).to.eql(3)
         })
@@ -123,6 +179,28 @@ describe('utilities', function() {
       describe('#mod', function() {
         it('should mod 2 nums', function() {
           expect(fjs.mod(3, 2)).to.eql(1)
+        })
+      })
+    })
+    describe('booleans', function() {
+      describe('#not', function() {
+        it('should negate its param and return it', function() {
+          expect(fjs.not(false)).to.eql(true)
+          expect(fjs.not(true)).to.eql(false)
+        })
+      })
+      describe('#and', function() {
+        it('should `and` its params', function() {
+          expect(fjs.and(false, false)).to.eql(false)
+          expect(fjs.and(false, true)).to.eql(false)
+          expect(fjs.and(true, true)).to.eql(true)
+        })
+      })
+      describe('#or', function() {
+        it('should `or` its params', function() {
+          expect(fjs.or(false, false)).to.eql(false)
+          expect(fjs.or(false, true)).to.eql(true)
+          expect(fjs.or(true, true)).to.eql(true)
         })
       })
     })
