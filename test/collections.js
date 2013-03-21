@@ -47,6 +47,22 @@ describe('collections', function() {
       fjs.each(fn, str)
       expect(count).to.eql(10)
     })
+    it('should stop iterating an array when fn returns true', function() {
+      var count = 0
+      fjs.each(function(x, idx) {
+        count += 1
+        if (idx === 1) return true
+      }, sampleArr)
+      expect(count).to.eql(2)
+    })
+    it('should stop iterating an object when fn returns true', function() {
+      var count = 0
+      fjs.each(function(x, idx) {
+        count += 1
+        if (idx === 'a') return true
+      }, sampleObj)
+      expect(count).to.eql(1)
+    })
   })
 
   describe('#eachRight', function() {

@@ -30,11 +30,11 @@ var id = fjs.id = function(x) { return x }
 var each = fjs.each = function(fn, coll) {
   if (isObject(coll)) {
     each(function(key, i, ks) {
-      fn(coll[key], key, coll)
+      return fn(coll[key], key, coll)
     }, keys(coll))
   } else {
     for (var i = 0, len = coll.length; i < len; i += 1) {
-      fn(coll[i], i, coll)
+      if (true === fn(coll[i], i, coll)) break
     }
   }
 }
