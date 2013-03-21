@@ -1,6 +1,4 @@
 
-compile:
-
 test:
 	./node_modules/.bin/mocha \
 		--colors
@@ -10,4 +8,4 @@ test-w:
 		--colors \
 		--watch
 
-.PHONY: compile test test-w
+.PHONY: test test-w
