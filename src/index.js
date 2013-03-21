@@ -108,7 +108,10 @@ var foldR1 = fjs.foldR1 = reduceRight1
 var find = fjs.find = function(fn, coll) {
   var res = null
   each(function(x, idx) {
-    if (!res && fn(x, idx)) res = x
+    if (fn(x, idx)) {
+      res = x
+      return true
+    }
   }, coll)
   return res
 }
