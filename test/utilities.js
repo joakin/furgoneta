@@ -96,6 +96,36 @@ describe('utilities', function() {
     })
   })
 
+  describe('operators as functions', function(){
+    describe('comparisons', function() {
+    })
+    describe('math', function() {
+      describe('add', function() {
+        it('should add nums', function() {
+          expect(fjs.add(1, 2)).to.eql(3)
+        })
+      })
+      describe('#substract', function() {
+        it('should substract 2 nums', function() {
+          expect(fjs.sub(3, 1)).to.eql(2)
+        })
+      })
+      describe('#multiply', function() {
+        it('should multiply 2 nums', function() {
+          expect(fjs.mul(3, 2)).to.eql(6)
+        })
+      })
+      describe('#division', function() {
+        it('should divide 2 nums', function() {
+          expect(fjs.div(6, 2)).to.eql(3)
+        })
+      })
+      describe('#mod', function() {
+        it('should mod 2 nums', function() {
+          expect(fjs.mod(3, 2)).to.eql(1)
+        })
+      })
+    })
   })
 
 })

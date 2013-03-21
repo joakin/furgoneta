@@ -213,4 +213,19 @@ var prop = fjs.prop = function(x) {
   }
 }
 
+// OPERATORS as functions
+// ----------------------
+
+var add = fjs.add = function(x, y) { return x + y }
+
+var sub = fjs.sub = function(x, y) { return x - y }
+
+var mul = fjs.mul = function(x, y) { return x * y }
+
+var div = fjs.div = function(x, y) { return x / y }
+
+var mod = fjs.mod = function(x, y) { return x % y }
+
+
+
 module.exports = fjs
