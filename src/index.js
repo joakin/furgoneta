@@ -84,9 +84,9 @@ var fold1 = fjs.fold1 = reduce1
 
 var reduceRight = fjs.reduceRight = function(fn, seed, coll) {
   var memo = seed
-  eachRight((function(value, key, coll1) {
+  eachRight(function(value, key, coll1) {
     memo = fn(memo, value, key, coll1)
-  }), coll)
+  }, coll)
   return memo
 }
 var foldR = fjs.foldR = reduceRight
@@ -94,13 +94,13 @@ var foldR = fjs.foldR = reduceRight
 var reduceRight1 = fjs.reduceRight1 = function(fn, coll) {
   var memo
   memo = null
-  eachRight((function(value, key, coll1) {
+  eachRight(function(value, key, coll1) {
     if (memo !== null) {
       return memo = fn(memo, value, key, coll1)
     } else {
       return memo = value
     }
-  }), coll)
+  }, coll)
   return memo
 }
 var foldR1 = fjs.foldR1 = reduceRight1
