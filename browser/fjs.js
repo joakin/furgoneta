@@ -12,145 +12,113 @@ if (!window.fjs) {
 })()
 },{"./index":2}],2:[function(require,module,exports){
 
-var fjs = {}
+var obj = require('./objects')
 
-/*
- * FUNCTIONS
- */
+module.exports = obj.extend(
+    require('./arguments')
+  , require('./arrays')
+  , require('./collections')
+  , require('./objects')
+  , require('./functions')
+  , require('./types')
+  , require('./operators')
+)
 
-var compose = fjs.compose = function() {
-  var fns = toArray(arguments)
-  return function() {
-    return reduceRight(function(m, v) {
-      return v.apply(this, [m])
-    }, last(fns).apply(this, arguments), initial(fns))
+
+},{"./objects":3,"./arguments":4,"./arrays":5,"./collections":6,"./functions":7,"./types":8,"./operators":9}],4:[function(require,module,exports){
+
+var _slice = [].slice
+
+exports.toArray = function(args) {
+  return _slice.call(args)
+}
+
+
+},{}],5:[function(require,module,exports){
+
+exports.first = function(xs) { return xs[0] }
+
+exports.last = function(xs) { return xs[xs.length-1] }
+
+exports.rest = function(xs) { return xs.slice(1) }
+
+exports.initial = function(xs) { return xs.slice(0, xs.length-1) }
+
+
+},{}],8:[function(require,module,exports){
+
+// Types conversion
+
+exports.objToFunc = function(xs) {
+  return function(idx){ return xs[idx] }
+}
+
+exports.prop = function(x) {
+  return function(it) {
+    return it[x]
   }
 }
 
-var partial = fjs.partial = function(fn) {
-  var args = rest(toArray(arguments))
-  return function() {
-    return fn.apply(this, args.concat(toArray(arguments)))
+// Types detection
+
+var objToString = {}.toString
+
+var typeOf = exports.typeOf = function(it) {
+  return objToString.call(it).slice(8, -1)
+}
+
+var isA = exports.isA = function(type, it) {
+  return type === typeOf(it)
+}
+
+var makeIsA = function(type) {
+  return function(it) {
+    return isA(type, it)
   }
 }
 
-var id = fjs.id = function(x) { return x }
+exports.isNumber   = makeIsA('Number')
+exports.isArray    = makeIsA('Array')
+exports.isObject   = makeIsA('Object')
+exports.isString   = makeIsA('String')
+exports.isFunction = makeIsA('Function')
+exports.isBoolean  = makeIsA('Boolean')
 
-var functor = fjs.functor = function(x) {
-  if (isFunction(x))
-    return x
-  else
-    return function() { return x }
-}
 
-/*
- * COLLECTIONS
- */
+},{}],9:[function(require,module,exports){
 
-var each = fjs.each = function(fn, coll) {
-  if (isObject(coll)) {
-    each(function(key, i, ks) {
-      return fn(coll[key], key, coll)
-    }, keys(coll))
-  } else {
-    for (var i = 0, len = coll.length; i < len; i += 1) {
-      if (true === fn(coll[i], i, coll)) break
-    }
-  }
-}
+// OPERATORS as functions
+// ----------------------
 
-var eachRight = fjs.eachRight = function(fn, coll) {
-  if (isObject(coll)) {
-    eachRight(function(key, i, ks) {
-      fn(coll[key], key, coll)
-    }, keys(coll))
-  } else {
-    for (var i = coll.length-1; i >= 0; i -= 1) {
-      fn(coll[i], i, coll)
-    }
-  }
-}
+// MATH
+exports.add = function(x, y) { return x + y }
+exports.sub = function(x, y) { return x - y }
+exports.mul = function(x, y) { return x * y }
+exports.div = function(x, y) { return x / y }
+exports.mod = function(x, y) { return x % y }
 
-var map = fjs.map = function(fn, coll) {
-  var res = []
-  each(function(x, idx, xs) {
-    res.push(fn(x, idx, xs))
-  }, coll)
-  return res
-}
+// CMP
+exports.eq = function(x, y) { return x === y }
+exports.eqc = function(x, y) { return x == y }
+exports.neq = function(x, y) { return x !== y }
+exports.neqc = function(x, y) { return x != y }
+exports.gt = function(x, y) { return x > y }
+exports.ge = function(x, y) { return x >= y }
+exports.lt = function(x, y) { return x < y }
+exports.le = function(x, y) { return x <= y }
 
-var reduce = fjs.reduce = function(fn, seed, coll) {
-  var memo = seed
-  each((function(value, key, coll1) {
-    memo = fn(memo, value, key, coll1)
-  }), coll)
-  return memo
-}
-var fold = fjs.fold = reduce
+// LOGIC
+exports.not = function(x) { return !x }
+exports.and = function(x, y) { return x && y }
+exports.or = function(x, y) { return x || y }
 
-var reduce1 = fjs.reduce1 = function(fn, coll) {
-  var memo
-  memo = null
-  each((function(value, key, coll1) {
-    if (memo !== null) {
-      return memo = fn(memo, value, key, coll1)
-    } else {
-      return memo = value
-    }
-  }), coll)
-  return memo
-}
-var fold1 = fjs.fold1 = reduce1
 
-var reduceRight = fjs.reduceRight = function(fn, seed, coll) {
-  var memo = seed
-  eachRight(function(value, key, coll1) {
-    memo = fn(memo, value, key, coll1)
-  }, coll)
-  return memo
-}
-var foldR = fjs.foldR = reduceRight
+},{}],3:[function(require,module,exports){
 
-var reduceRight1 = fjs.reduceRight1 = function(fn, coll) {
-  var memo
-  memo = null
-  eachRight(function(value, key, coll1) {
-    if (memo !== null) {
-      return memo = fn(memo, value, key, coll1)
-    } else {
-      return memo = value
-    }
-  }, coll)
-  return memo
-}
-var foldR1 = fjs.foldR1 = reduceRight1
+var args = require('./arguments')
+  , coll = require('./collections')
 
-var find = fjs.find = function(fn, coll) {
-  var res = null
-  each(function(x, idx) {
-    if (fn(x, idx, coll)) {
-      res = x
-      return true
-    }
-  }, coll)
-  return res
-}
-var detect = fjs.detect = find
-
-var filter = fjs.filter = function(fn, coll) {
-  return reduce(function(acc, x, idx) {
-    if (fn(x, idx, coll))
-      acc.push(x)
-    return acc
-  }, [], coll)
-}
-var select = fjs.select = filter
-
-/*
- * OBJECTS
- */
-
-var keys = fjs.keys = Object.keys || function (obj) {
+exports.keys = Object.keys || function (obj) {
   var xs = []
   for (var prop in obj) {
     if (obj.hasOwnProperty(prop)) {
@@ -160,114 +128,152 @@ var keys = fjs.keys = Object.keys || function (obj) {
   return xs
 }
 
-/*
- * ARRAYS
- */
-
-var first = fjs.first = function(xs) { return xs[0] }
-
-var last = fjs.last = function(xs) { return xs[xs.length-1] }
-
-var rest = fjs.rest = function(xs) { return xs.slice(1) }
-
-var initial = fjs.initial = function(xs) { return xs.slice(0, xs.length-1) }
-
-var concat = fjs.concat = function() {
-  var args = toArray(arguments)
-  return reduce1(function(m, x, idx, xs) {
-    return m.concat(x)
-  }, args)
+exports.extend = function() {
+  var res = {}
+  coll.each(function(object) {
+    coll.each(function(v, k) {
+      res[k] = v
+    }, object)
+  }, args.toArray(arguments))
+  return res
 }
 
 
-/*
- * UTILITIES
- * =========
- */
+},{"./arguments":4,"./collections":6}],6:[function(require,module,exports){
 
+var types = require('./types')
+  , obj = require('./objects')
 
-// TYPES
-// -----
-
-objToString = {}.toString
-
-var typeOf = fjs.typeOf = function(it) {
-  return objToString.call(it).slice(8, -1)
-}
-
-var isA = fjs.isA = function(type, it) {
-  return type === typeOf(it)
-}
-
-var isNumber = fjs.isNumber = function(it) {
-  return isA('Number', it)
-}
-
-var isArray = fjs.isArray = function(it) {
-  return isA('Array', it)
-}
-
-var isObject = fjs.isObject = function(it) {
-  return isA('Object', it)
-}
-
-var isString = fjs.isString = function(it) {
-  return isA('String', it)
-}
-
-var isFunction = fjs.isFunction = function(it) {
-  return isA('Function', it)
-}
-
-var isBoolean = fjs.isBoolean = function(it) {
-  return isA('Boolean', it)
-}
-
-// ARGUMENTS
-// ---------
-
-var _slice = [].slice
-
-var toArray = function(args) {
-  return _slice.call(args)
-}
-
-// TO FUNCTION
-// -----------
-
-var objToFunc = fjs.objToFunc = function(xs) {
-  return function(idx){ return xs[idx] }
-}
-
-var prop = fjs.prop = function(x) {
-  return function(it) {
-    return it[x]
+var each = exports.each = function(fn, coll) {
+  if (types.isObject(coll)) {
+    each(function(key, i, ks) {
+      return fn(coll[key], key, coll)
+    }, obj.keys(coll))
+  } else {
+    for (var i = 0, len = coll.length; i < len; i += 1) {
+      if (true === fn(coll[i], i, coll)) break
+    }
   }
 }
 
-// OPERATORS as functions
-// ----------------------
+var eachRight = exports.eachRight = function(fn, coll) {
+  if (types.isObject(coll)) {
+    eachRight(function(key, i, ks) {
+      fn(coll[key], key, coll)
+    }, obj.keys(coll))
+  } else {
+    for (var i = coll.length-1; i >= 0; i -= 1) {
+      fn(coll[i], i, coll)
+    }
+  }
+}
 
-var add = fjs.add = function(x, y) { return x + y }
-var sub = fjs.sub = function(x, y) { return x - y }
-var mul = fjs.mul = function(x, y) { return x * y }
-var div = fjs.div = function(x, y) { return x / y }
-var mod = fjs.mod = function(x, y) { return x % y }
+exports.map = function(fn, coll) {
+  var res = []
+  each(function(x, idx, xs) {
+    res.push(fn(x, idx, xs))
+  }, coll)
+  return res
+}
 
-var eq = fjs.eq = function(x, y) { return x === y }
-var eqc = fjs.eqc = function(x, y) { return x == y }
-var neq = fjs.neq = function(x, y) { return x !== y }
-var neqc = fjs.neqc = function(x, y) { return x != y }
-var gt = fjs.gt = function(x, y) { return x > y }
-var ge = fjs.ge = function(x, y) { return x >= y }
-var lt = fjs.lt = function(x, y) { return x < y }
-var le = fjs.le = function(x, y) { return x <= y }
+var reduce = exports.reduce = function(fn, seed, coll) {
+  var memo = seed
+  each(function(value, key, coll1) {
+    memo = fn(memo, value, key, coll1)
+  }, coll)
+  return memo
+}
+exports.fold = reduce
 
-var not = fjs.not = function(x) { return !x }
-var and = fjs.and = function(x, y) { return x && y }
-var or = fjs.or = function(x, y) { return x || y }
+var reduce1 = exports.reduce1 = function(fn, coll) {
+  var memo
+  memo = null
+  each(function(value, key, coll1) {
+    if (memo !== null) {
+      return memo = fn(memo, value, key, coll1)
+    } else {
+      return memo = value
+    }
+  }, coll)
+  return memo
+}
+exports.fold1 = reduce1
 
-module.exports = fjs
+var reduceRight = exports.reduceRight = function(fn, seed, coll) {
+  var memo = seed
+  eachRight(function(value, key, coll1) {
+    memo = fn(memo, value, key, coll1)
+  }, coll)
+  return memo
+}
+exports.foldR = reduceRight
 
-},{}]},{},[1])
+var reduceRight1 = exports.reduceRight1 = function(fn, coll) {
+  var memo
+  memo = null
+  eachRight(function(value, key, coll1) {
+    if (memo !== null) {
+      return memo = fn(memo, value, key, coll1)
+    } else {
+      return memo = value
+    }
+  }, coll)
+  return memo
+}
+exports.foldR1 = reduceRight1
+
+var find = exports.find = function(fn, coll) {
+  var res = null
+  each(function(x, idx) {
+    if (fn(x, idx, coll)) {
+      res = x
+      return true
+    }
+  }, coll)
+  return res
+}
+exports.detect = find
+
+var filter = exports.filter = function(fn, coll) {
+  return reduce(function(acc, x, idx) {
+    if (fn(x, idx, coll))
+      acc.push(x)
+    return acc
+  }, [], coll)
+}
+exports.select = filter
+
+},{"./types":8,"./objects":3}],7:[function(require,module,exports){
+
+var args  = require('./arguments')
+  , coll  = require('./collections')
+  , arr   = require('./arrays')
+  , types = require('./types')
+
+exports.compose = function() {
+  var fns = args.toArray(arguments)
+  return function() {
+    return coll.reduceRight(function(m, v) {
+      return v.apply(this, [m])
+    }, arr.last(fns).apply(this, arguments), arr.initial(fns))
+  }
+}
+
+exports.partial = function(fn) {
+  var argsArr = arr.rest(args.toArray(arguments))
+  return function() {
+    return fn.apply(this, argsArr.concat(args.toArray(arguments)))
+  }
+}
+
+exports.id = function(x) { return x }
+
+exports.functor = function(x) {
+  if (types.isFunction(x))
+    return x
+  else
+    return function() { return x }
+}
+
+},{"./arguments":4,"./collections":6,"./arrays":5,"./types":8}]},{},[1])
 ;

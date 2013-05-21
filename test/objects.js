@@ -12,6 +12,19 @@ describe('Objects', function() {
     })
   })
 
+  describe('#extend', function() {
+    it('merges all the objects passed onto a new one', function() {
+      var o = fjs.extend(
+        { a: 1 },
+        { b: 2 },
+        { c: 3 }
+      )
+      expect(o.a).to.eql(1)
+      expect(o.b).to.eql(2)
+      expect(o.c).to.eql(3)
+    })
+  })
+
 
 })
 

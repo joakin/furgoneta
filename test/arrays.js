@@ -38,15 +38,5 @@ describe('Arrays', function() {
     })
   })
 
-  describe('#concat', function() {
-    it('should concat two arrays', function() {
-      var res = fjs.concat(sampleArr, sampleArr2)
-      expect(res.length).to.eql(7)
-      expect(res[0]).to.eql(1)
-      expect(res[res.length-1]).to.eql(9)
-    })
-  })
-
-
 })
 
