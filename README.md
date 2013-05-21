@@ -1,4 +1,5 @@
 ## fjs
+
 Helper library to make functional programming in JS easier.
 
 Inspired by underscore.js, culljs, prelude.ls and other sources.
