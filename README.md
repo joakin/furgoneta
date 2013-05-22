@@ -20,10 +20,10 @@ var f = require('fjs')
 
 #### Documentation terms and reference
 
-`...args` : refers to an indeterminate number of arguments, a variadic function
-`idx`     : var name of an index or key
-`x`       : var name usually used to indicate an item or value
-`xs`      : var name of a sequence or collection
+* `...args` : refers to an indeterminate number of arguments, a variadic function
+* `idx`     : var name of an index or key
+* `x`       : var name usually used to indicate an item or value
+* `xs`      : var name of a sequence or collection
 
 Note that along the docs, the examples' output will be noted in nearby comments.
 
