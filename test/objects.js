@@ -23,6 +23,14 @@ describe('Objects', function() {
       expect(o.b).to.eql(2)
       expect(o.c).to.eql(3)
     })
+    it('merges the objects from right to left into a new one', function() {
+      var o = fjs.extend(
+        { a: 1 },
+        { a: 2 },
+        { a: 3 }
+      )
+      expect(o.a).to.eql(3)
+    })
   })
 
 
