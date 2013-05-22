@@ -2,11 +2,9 @@
 
 Helper library to make functional programming in JS easier.
 
-Inspired by underscore.js, culljs, prelude.ls and other sources.
-
 Disclaimer: **This is a work in progress and a personal project to learn
 functional concepts, how are they implemented and to become familiar with
-them**
+them. Despite all this, it is usable, tested and it works.**
 
 ## Contents
 
@@ -19,6 +17,15 @@ with the variable `f` as if we had done:
 ```javascript
 var f = require('fjs')
 ```
+
+#### Documentation terms and reference
+
+`...args` : refers to an indeterminate number of arguments, a variadic function
+`idx`     : var name of an index or key
+`x`       : var name usually used to indicate an item or value
+`xs`      : var name of a sequence or collection
+
+Note that along the docs, the examples' output will be noted in nearby comments.
 
 
 ### Arguments
@@ -676,4 +683,14 @@ Make actions:
 
 On the folder `docs` there are pdfs of the three sites that I want to use as
 inspiration.
+
+## Inspiration
+
+This library is inspired and influenced by various libraries and languages:
+
+  * [Clojure's core library](http://richhickey.github.io/clojure/clojure.core-api.html)
+  * [underscore.js](http://underscorejs.org/)
+  * [culljs](https://github.com/culljs/culljs)
+  * [prelude.ls](http://gkz.github.io/prelude-ls/)
+
 
