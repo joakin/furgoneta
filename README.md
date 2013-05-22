@@ -24,6 +24,8 @@ var f = require('fjs')
 * `idx`     : var name of an index or key
 * `x`       : var name usually used to indicate an item or value
 * `xs`      : var name of a sequence or collection
+* `fn`      : var name of a function.
+* `fn(x)`   : var name of a function that will receive a param `x` (an item).
 
 Note that along the docs, the examples' output will be noted in nearby comments.
 
