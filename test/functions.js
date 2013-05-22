@@ -22,7 +22,7 @@ describe('Functions', function() {
     })
   })
 
-  describe('partial', function() {
+  describe('#partial', function() {
     it('should return a function', function() {
       var add2 = fjs.partial(add, 2)
       expect(add2).to.be.a('function')

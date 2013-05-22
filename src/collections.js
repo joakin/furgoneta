@@ -100,3 +100,4 @@ var filter = exports.filter = function(fn, coll) {
   }, [], coll)
 }
 exports.select = filter
+
