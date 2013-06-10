@@ -26,7 +26,7 @@ loc:
 	wc --lines src/*
 
 clean:
-	rm --force --recursive browser
+	rm -rf browser
 
 all: test clean build-browser
 
