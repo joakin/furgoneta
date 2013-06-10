@@ -335,6 +335,19 @@ f.reject(even, { a: 4, b: 5, c: 6 })
 // > [ 5 ]
 ```
 
+#### every(fn(x, idx, coll), xs) *Alias: all*
+
+Returns true if all the elements in the collection pass the truth test `fn`.
+
+```javascript
+var even = function(x) { return !(x % 2) }
+
+f.every(even, [1, 2, 3])
+// > false
+
+f.all(even, [2, 4, 6])
+// > true
+```
 
 ### Functions
 

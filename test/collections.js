@@ -5,6 +5,8 @@ var expect = require('chai').expect
 var sampleArr = [1, 2, 3]
   , sampleObj = { a: 1, b: 2 }
 
+var isOdd = function(x) { return x % 2 }
+
 describe('collections', function() {
 
   describe('#each', function() {
@@ -215,13 +217,13 @@ describe('collections', function() {
   describe('#filter', function() {
     it('should return all the items that pass the truth test in the array', function() {
       var res = f.filter(f.functor(true), sampleArr)
-        , res2 = f.filter(function(x) { return x % 2 }, sampleArr)
+        , res2 = f.filter(isOdd, sampleArr)
       expect(res.length).to.eql(sampleArr.length)
       expect(res2.length).to.eql(2)
     })
     it('should return all the items that pass the truth test in the object', function() {
       var res = f.filter(f.functor(true), sampleObj)
-        , res2 = f.filter(function(x) { return x % 2 }, sampleObj)
+        , res2 = f.filter(isOdd, sampleObj)
       expect(res.length).to.eql(f.keys(sampleObj).length)
       expect(res2.length).to.eql(1)
     })
@@ -235,17 +237,37 @@ describe('collections', function() {
 
   describe('#reject', function() {
     it('should return all the items that didn\'t pass the truth test in the array', function() {
-      var odd = function(x) { return x % 2 }
-        , res = f.reject(f.functor(true), sampleArr)
-        , res2 = f.reject(odd, sampleArr)
+      var res = f.reject(f.functor(true), sampleArr)
+        , res2 = f.reject(isOdd, sampleArr)
       expect(res.length).to.eql(0)
       expect(res2.length).to.eql(1)
     })
     it('should return all the items that didn\'t pass the truth test in the object', function() {
       var res = f.reject(f.functor(true), sampleObj)
-        , res2 = f.reject(function(x) { return x % 2 }, sampleObj)
+        , res2 = f.reject(isOdd, sampleObj)
       expect(res.length).to.eql(0)
       expect(res2.length).to.eql(1)
+    })
+  })
+
+  describe('#every', function() {
+    it('should return true if all items pass the truth test', function() {
+      var res = f.every(isOdd, [1, 3, 5])
+        , res2 = f.every(isOdd, { a: 1, b: 3 })
+      expect(res).to.be.true
+      expect(res2).to.be.true
+    })
+    it('should return false if some items don\'t pass the truth test', function() {
+      var res = f.every(isOdd, sampleArr)
+        , res2 = f.every(isOdd, sampleObj)
+      expect(res).to.be.false
+      expect(res2).to.be.false
+    })
+  })
+
+  describe('#all', function() {
+    it('should be an alias to #every', function() {
+      expect(f.every).to.eql(f.all)
     })
   })
 

@@ -109,4 +109,15 @@ var reject = exports.reject = function(fn, coll) {
   }, [], coll)
 }
 
+var every = exports.every = function(fn, coll) {
+  var res = true
+  each(function(x, idx, coll) {
+    if(!fn(x, idx, coll)) {
+      res = false
+      return true
+    }
+  }, coll)
+  return res
+}
+exports.all = every
 
