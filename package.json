@@ -1,12 +1,12 @@
 {
-  "name": "fjs",
+  "name": "furgoneta",
   "version": "0.0.1",
   "description": "Functional JS support library",
   "author": "Joaquin Oltra (http://chimeces.com/)",
-  "homepage": "https://github.com/joakin/fjs",
+  "homepage": "https://github.com/joakin/furgoneta",
   "repository": {
     "type": "git",
-    "url": "git@github.com:joakin/fjs.git"
+    "url": "git@github.com:joakin/furgoneta.git"
   },
   "main": "./src/index",
   "scripts": {
@@ -19,8 +19,7 @@
     "backbone": "./shims/backbone.js",
     "underscore": "./shims/underscore.js"
   },
-  "dependencies": {
-  },
+  "dependencies": {},
   "devDependencies": {
     "mocha": "~1.9.0",
     "chai": "~1.6.0",

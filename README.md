@@ -1,4 +1,4 @@
-## fjs
+## furgoneta
 
 Helper library to make functional programming in JS easier.
 
@@ -6,16 +6,37 @@ Disclaimer: **This is a work in progress and a personal project to learn
 functional concepts, how are they implemented and to become familiar with
 them. Despite all this, it is usable, tested and it works.**
 
+## Usage
+
+### From a browserify enabled client side module
+
+If you are developing a module or application and using browserify as a module
+loader, then just include furgoneta on the `package.json` as a
+dependency, and require it normally.
+
+### From a server side node.js module
+
+Same as above. Declare the dependency on the `package.json` of your module/app
+and require it normally.
+
+### From a browser side application that does NOT use browserify
+
+You have to grab the file `browser/furgoneta.js` or
+`browser/furgoneta-min.js` and include it on your page after the
+required dependencies. It will define a global variable on the window object
+called `furgoneta`, that you can use then normally.
+
+
 ## Contents
 
-Next you will find a list of functions exported by fjs, classified by groups,
+Next you will find a list of functions exported by furgoneta, classified by groups,
 as they are in the source code.
 
-On the samples, we will asume that we imported and are using the fjs library
+On the samples, we will asume that we imported and are using the furgoneta library
 with the variable `f` as if we had done:
 
 ```javascript
-var f = require('fjs')
+var f = require('furgoneta')
 ```
 
 #### Documentation terms and reference
@@ -400,7 +421,7 @@ getAge({ age: 21, name: 'John' })
 
 ### Operators
 
-`fjs` includes some operators as functions to ease its usage through your
+`furgoneta` includes some operators as functions to ease its usage through your
 functional code.
 
 #### Math
@@ -664,11 +685,6 @@ isBoolean(false)
 // > true
 ```
 
-
-## Usage
-
-The requireable module returns a var `fjs` containing all functions inside it.
-In the case of using the browser version, a `window.fjs` var will be created.
 
 ## Development
 To get the dependencies do a `npm install`

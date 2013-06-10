@@ -14,13 +14,13 @@ test-w:
 browser:
 	mkdir browser/
 
-fjs.js: browser
-	$(BROWSERIFY) ./src/browser-index.js > browser/fjs.js
+furgoneta.js: browser
+	$(BROWSERIFY) ./src/browser-index.js > browser/furgoneta.js
 
-fjs-min.js: browser/fjs.js
-	$(UGLIFYJS) browser/fjs.js --mangle --comments "all" > browser/fjs-min.js
+furgoneta-min.js: browser/furgoneta.js
+	$(UGLIFYJS) browser/furgoneta.js --mangle --comments "all" > browser/furgoneta-min.js
 
-build-browser: fjs.js fjs-min.js
+build-browser: furgoneta.js furgoneta-min.js
 
 loc:
 	wc --lines src/*

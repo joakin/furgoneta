@@ -1,9 +1,9 @@
 
-var fjs = require('./index')
+var furgoneta = require('./index')
 
-if (!window.fjs) {
-  window.fjs = fjs
+if (!window.furgoneta) {
+  window.furgoneta = furgoneta
 } else {
-  throw new Error('fjs global variable already defined')
+  throw new Error('furgoneta global variable already defined')
 }
 
