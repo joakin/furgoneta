@@ -319,6 +319,22 @@ f.filter(even, { a: 4, b: 5, c: 6 })
 // > [ 4, 6 ]
 ```
 
+#### reject(fn(x, idx, coll), xs)
+
+Return all the elements that didn't pass the truth test `fn`. Returns the
+inverse of `filter`.
+
+```javascript
+var even = function(x) { return !(x % 2) }
+var odd = f.compose(f.not, even)
+
+f.reject(odd, [ 1, 2, 3 ])
+// > [ 2 ]
+
+f.reject(even, { a: 4, b: 5, c: 6 })
+// > [ 5 ]
+```
+
 
 ### Functions
 

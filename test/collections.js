@@ -233,5 +233,20 @@ describe('collections', function() {
     })
   })
 
+  describe('#reject', function() {
+    it('should return all the items that didn\'t pass the truth test in the array', function() {
+      var odd = function(x) { return x % 2 }
+        , res = f.reject(f.functor(true), sampleArr)
+        , res2 = f.reject(odd, sampleArr)
+      expect(res.length).to.eql(0)
+      expect(res2.length).to.eql(1)
+    })
+    it('should return all the items that didn\'t pass the truth test in the object', function() {
+      var res = f.reject(f.functor(true), sampleObj)
+        , res2 = f.reject(function(x) { return x % 2 }, sampleObj)
+      expect(res.length).to.eql(0)
+      expect(res2.length).to.eql(1)
+    })
+  })
 
 })

@@ -101,3 +101,12 @@ var filter = exports.filter = function(fn, coll) {
 }
 exports.select = filter
 
+var reject = exports.reject = function(fn, coll) {
+  return reduce(function(acc, x, idx) {
+    if (!fn(x, idx, coll))
+      acc.push(x)
+    return acc
+  }, [], coll)
+}
+
+
