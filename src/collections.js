@@ -121,3 +121,15 @@ var every = exports.every = function(fn, coll) {
 }
 exports.all = every
 
+var some = exports.some = function(fn, coll) {
+  var res = false
+  each(function(x, idx, coll) {
+    if(fn(x, idx, coll)) {
+      res = true
+      return true
+    }
+  }, coll)
+  return res
+}
+exports.any= some
+

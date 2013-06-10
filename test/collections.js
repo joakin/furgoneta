@@ -271,4 +271,25 @@ describe('collections', function() {
     })
   })
 
+  describe('#some', function() {
+    it('should return true if all items pass the truth test', function() {
+      var res = f.some(isOdd, sampleArr)
+        , res2 = f.some(isOdd, sampleObj)
+      expect(res).to.be.true
+      expect(res2).to.be.true
+    })
+    it('should return false if some items don\'t pass the truth test', function() {
+      var res = f.some(isOdd, [2, 4])
+        , res2 = f.some(isOdd, { a: 2, b: 4 })
+      expect(res).to.be.false
+      expect(res2).to.be.false
+    })
+  })
+
+  describe('#any', function() {
+    it('should be an alias to #some', function() {
+      expect(f.some).to.eql(f.any)
+    })
+  })
+
 })

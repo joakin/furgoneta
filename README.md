@@ -340,13 +340,30 @@ f.reject(even, { a: 4, b: 5, c: 6 })
 Returns true if all the elements in the collection pass the truth test `fn`.
 
 ```javascript
-var even = function(x) { return !(x % 2) }
+var isEven = function(x) { return !(x % 2) }
 
-f.every(even, [1, 2, 3])
+f.every(isEven, [1, 2, 3])
 // > false
 
-f.all(even, [2, 4, 6])
+f.all(isEven, [2, 4, 6])
 // > true
+```
+
+#### some(fn(x, idx, coll), xs) *Alias: any*
+
+Returns true if any of the elements in the collection pass the truth test `fn`.
+
+```javascript
+var isEven = function(x) { return !(x % 2) }
+
+f.some(isEven, [1, 2, 3])
+// > true
+
+f.any(isEven, [2, 4, 6])
+// > true
+
+f.any(isEven, [1, 3, 5])
+// > false
 ```
 
 ### Functions
